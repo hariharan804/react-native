@@ -114,13 +114,13 @@ const ServiceDetails = () => {
               </View>
             </View>
           </View>
-            <CustomButton
-              title="Buy Now"
-              color="#fff"
-              height={50}
-              bgColor="#353596"
-              paddingVertical={15}
-            />
+          <CustomButton
+            title="Buy Now"
+            color="#fff"
+            height={50}
+            bgColor="#353596"
+            paddingVertical={15}
+          />
         </View>
       </View>
     </>
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   titleBlock: {flex: 2},
   backArrow: {width: 24, height: 24, resizeMode: 'contain'},
   contentContainer: {
-    flex:1,
+    flex: 1,
     justifyContent: 'space-between',
     // alignItems:"center"
   },

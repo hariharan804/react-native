@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
+import {StyleSheet, Text, View} from 'react-native';
+import PropTypes from 'prop-types';
 const Card = ({title, quality, rm}) => {
   return (
     <View style={styles.cardContainer}>
@@ -20,40 +20,51 @@ const Card = ({title, quality, rm}) => {
 export default Card;
 
 const styles = StyleSheet.create({
-
-    cardContainer: {
-        borderBottomWidth: 1,
-        borderColor: 'rgba(37, 43, 67, 0.07)',
-        borderStyle: 'solid',
-      },
-      innerCard: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 20,
-        paddingVertical: 12,
-        alignItems: 'center',
-      },
-      cardTitle: {
-        fontFamily: 'ProximaNova',
-        fontSize: 16,
-        fontWeight: '700',
-        letterSpacing: 0.8,
-        color: '#363a57',
-        marginBottom: 1,
-      },
-      cardQuality: {
-        fontFamily: 'ProximaNova',
-        fontSize: 14,
-        fontWeight: '500',
-        letterSpacing: 0.8,
-        color: '#9097a5',
-      },
-      cardRM: {
-        fontFamily: 'ProximaNova',
-        fontSize: 14,
-        fontWeight: '600',
-        letterSpacing: 0.8,
-        color: '#353596',
-      },
+  cardContainer: {
+    borderBottomWidth: 1,
+    borderColor: 'rgba(37, 43, 67, 0.07)',
+    borderStyle: 'solid',
+  },
+  innerCard: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  cardTitle: {
+    fontFamily: 'ProximaNova',
+    fontSize: 16,
+    fontWeight: '700',
+    letterSpacing: 0.8,
+    color: '#363a57',
+    marginBottom: 1,
+  },
+  cardQuality: {
+    fontFamily: 'ProximaNova',
+    fontSize: 14,
+    fontWeight: '500',
+    letterSpacing: 0.8,
+    color: '#9097a5',
+  },
+  cardRM: {
+    fontFamily: 'ProximaNova',
+    fontSize: 14,
+    fontWeight: '600',
+    letterSpacing: 0.8,
+    color: '#353596',
+  },
 });
+
+Card.prototype = {
+  title: PropTypes.string,
+  quality: PropTypes.string,
+  rm:PropTypes.string
+}
+
+Card.defaultProps={
+  title:"",
+  quality:"",
+  rm:"",
+}

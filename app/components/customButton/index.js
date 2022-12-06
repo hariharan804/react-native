@@ -1,18 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import PropTypes from 'prop-types';
 
-const CustomButton = props => {
-  const {
-    title = 'Example',
-    color = '',
-    bgColor = '',
-    width = "100%",
-    height = 35,
-    paddingVertical=8,
-    onPress = () => {
-      console.log('pressing ' + title + ' Button');
-    },
-  } = props;
+const CustomButton = ({title, color, bgColor, width, height, paddingVertical, onPress}) => {
+ 
   return (
     <View>
       <TouchableOpacity
@@ -23,7 +14,7 @@ const CustomButton = props => {
           width: width,
           height: height,
           backgroundColor: bgColor,
-          paddingVertical:paddingVertical
+          paddingVertical: paddingVertical,
         }}>
         <Text style={{...styles.btnStyle, color: color}}>{title}</Text>
       </TouchableOpacity>
@@ -50,3 +41,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+CustomButton.prototype = {
+  title: PropTypes.string,
+  color: PropTypes.string,
+  bgColor: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  paddingVertical: PropTypes.number,
+  onPress: PropTypes.string,
+};
+CustomButton.defaultProps = {
+  title: 'Example',
+  color: '',
+  bgColor: '',
+  width: '100%',
+  height: 35,
+  paddingVertical: 8,
+  onPress: () => {
+    console.log('pressing Button');
+  },
+};
