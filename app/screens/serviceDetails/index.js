@@ -1,8 +1,8 @@
 import React from 'react';
-import {FlatList, Image, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Card from '../../components/card';
 import CustomButton from '../../components/customButton';
-const ServiceDetails = () => {
+const ServiceDetails = ({navigation}) => {
   const cardDetails = [
     {
       id: 1,
@@ -100,7 +100,9 @@ const ServiceDetails = () => {
                   <Text style={styles.tcDes}>
                     Terms of service are the legal agreements between a service
                     provider and a person who wants to use that service.{' '}
+                    <TouchableOpacity>
                     <Text style={styles.viewDtl}>View More</Text>
+                    </TouchableOpacity>
                   </Text>
                 </View>
               </View>
@@ -118,6 +120,7 @@ const ServiceDetails = () => {
             title="Buy Now"
             color="#fff"
             height={50}
+            onPress={()=>navigation.navigate('Intermediate')}
             bgColor="#353596"
             paddingVertical={15}
           />
@@ -151,7 +154,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'ProximaNova',
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: '600',
     letterSpacing: 0.8,
     color: '#363a57',
   },
@@ -180,9 +183,9 @@ const styles = StyleSheet.create({
     borderColor: '#ebebeb',
     borderStyle: 'solid',
     borderRadius: 5,
-    width: 'auto',
     paddingVertical: 2,
     paddingHorizontal: 8,
+    alignSelf:"flex-start"
   },
   benifitText: {
     fontFamily: 'NunitoSans-Regular',
@@ -194,7 +197,7 @@ const styles = StyleSheet.create({
   productTitle: {
     fontFamily: 'ProximaNova',
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '600',
     letterSpacing: 0.8,
     color: '#363a57',
     marginBottom: 2,
@@ -280,6 +283,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontStyle: 'normal',
     color: '#f27d35',
+
   },
   includesContainer: {
     backgroundColor: '#fff',

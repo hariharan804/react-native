@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontFamily: 'ProximaNova',
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '600',
     letterSpacing: 0.8,
     color: '#363a57',
     marginBottom: 1,
