@@ -27,6 +27,11 @@ const ServiceDetails = ({navigation}) => {
   const renderItem = ({item}) => (
     <Card title={item.title} quality={item.quality} rm={item.rm} />
   );
+
+  const clickFun = ()=>{
+    debugger
+    console.log("debug");
+  }
   return (
     <>
       <StatusBar
@@ -87,6 +92,7 @@ const ServiceDetails = ({navigation}) => {
                       width={105}
                       height={35}
                       color="#fff"
+                      onPress={()=>clickFun()}
                       bgColor="#353596"
                     />
                   </View>
