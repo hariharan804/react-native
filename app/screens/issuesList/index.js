@@ -116,7 +116,7 @@ export default function IssuesList({navigation}) {
             />
           </View>
           <View style={styles.filterIcon}>
-            <TouchableOpacity onPress={() => setFilterIcon('flex')}>
+            <TouchableOpacity onPress={() =>{filterIcon == "none" ? setFilterIcon('flex'):setFilterIcon('none') } }>
               <Svg
                 width="24px"
                 height="24px"
@@ -292,6 +292,14 @@ const styles = StyleSheet.create({
     zIndex: 1,
     top: 120,
     right: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
   },
   menuItem: {
     marginBottom: 10,
