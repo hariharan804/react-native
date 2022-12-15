@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {NavigationContainer} from '@react-navigation/native';
 import MyStack from './app/components/MyStack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';

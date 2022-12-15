@@ -1,23 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
 
-export default function IssueCard({item}) {
-    const {id, title, subTitle, status}  = item;
+export default function IssueCard({item, navigation}) {
+  const {id, title, subTitle, status} = item;
   const [color, setColor] = useState('#f27d35');
   useEffect(() => {
-    if (status.toLowerCase() == 'open') {
-      setColor('#f27d35');
-    }else if (status.toLowerCase() == 'resolved') {
-      setColor('#31b198');
-    } else {
-      setColor('#252b43');
+    if (status) {
+      if (status.toLowerCase() == 'open') {
+        setColor('#f27d35');
+      } else if (status.toLowerCase() == 'resolved') {
+        setColor('#31b198');
+      } else {
+        setColor('#252b43');
+      }
     }
   }, [status]);
 
-  console.log(status.toLowerCase());
   return (
-    <View style={styles.root}>
+    <View style={styles.root} >
+    <TouchableOpacity onPress={()=>navigation.navigate('IssuesDetails',{id:id})}  activeOpacity={0.7}>
       <View style={styles.detailsContainer}>
         <Text style={styles.id}>{id}</Text>
         <Text style={styles.title}>{title}</Text>
@@ -29,13 +31,15 @@ export default function IssueCard({item}) {
           <Text style={{...styles.statusValue, color: color}}>{status}</Text>
         </Text>
       </View>
+      </TouchableOpacity> 
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
-    marginTop: 10,
+    marginTop: 7,
+    marginBottom: 7,
     paddingVertical: 10,
     backgroundColor: '#fff',
   },

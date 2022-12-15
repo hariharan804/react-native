@@ -1,4 +1,6 @@
-import React from 'react';
+// import axios from 'axios';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -7,44 +9,55 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {Defs, G, Path, Svg} from 'react-native-svg';
 import IssueCard from '../../components/issueCard';
 
-const data = [
-  {
-    id: '#ICG12098',
-    title: 'Having trouble with access a service',
-    subTitle: 'Physio - Ultra (Monthly)',
-    status: 'Open',
-  },
-  {
-    id: '#ICG13010',
-    title: 'Having trouble with access a service',
-    subTitle: 'Physio - Ultra (Weekly)',
-    status: 'Pending',
-  },
-  {
-    id: '#ICG12099',
-    title: 'Pre-Assessment tips are not yet received.',
-    subTitle: 'Physio - Basic (Yearly)',
-    status: 'Resolved',
-  },
-  {
-    id: '#ICG12019',
-    title: 'Pre-Assessment tips are not yet received.',
-    subTitle: 'Physio - Basic (Yearly)',
-    status: 'Resolved',
-  },
-  {
-    id: '#ICG12044',
-    title: 'Pre-Assessment tips are not yet received.',
-    subTitle: 'Physio - Basic (Yearly)',
-    status: 'Resolved',
-  },
-];
-export default function IssuesList() {
+export default function IssuesList({navigation}) {
+  const renderItem = ({item}) => {
+    return <IssueCard item={item} navigation={navigation}/>;
+  };
+  const [respons, setRespons] = useState(null);
+  const [filtredData, setFilterdData] = useState(null);
+  const [filterIcon, setFilterIcon] = useState('none');
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        'https://run.mocky.io/v3/865c345a-6741-437c-94ac-1899da1c75f9',
+      );
+      setRespons(response.data);
+      setFilterdData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const searchOnchange = e => {
+    setFilterdData(filterResponse(e));
+  };
+  const filterIconFun = e => {
+    setFilterIcon('none');
+    setFilterdData(filterResponse(e));
+  };
+  const filterResponse = e => {
+    const value = e.toLowerCase();
+    const copyData = respons.slice();
+    if (copyData?.length <= 0) return;
+    const filtered = copyData.filter(
+      a =>
+        a.status.toLowerCase().includes(value) ||
+        a.title.toLowerCase().includes(value),
+    );
+    return filtered;
+  };
+
   return (
     <SafeAreaView style={styles.root}>
       <StatusBar
@@ -59,10 +72,24 @@ export default function IssuesList() {
           <View style={styles.backBtn}>
             <Image
               style={styles.backArrow}
-              source={require('../../assets/images/arrow-right.png')}
+              source={require('../../assets/images/arrowRight.png')}
             />
           </View>
           <Text style={styles.title}>Issuse</Text>
+        </View>
+        <View style={{...styles.menuCard, display: filterIcon}}>
+          <TouchableOpacity onPress={() => filterIconFun('open')}>
+            <Text style={styles.menuItem}>Open</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => filterIconFun('resolved')}>
+            <Text style={styles.menuItem}>Resolved</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => filterIconFun('pending')}>
+            <Text style={styles.menuItem}>Pending</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => filterIconFun('')}>
+            <Text style={styles.menuItem}>Clear</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.filterContainer}>
           <View style={styles.search}>
@@ -84,43 +111,43 @@ export default function IssuesList() {
             <TextInput
               style={styles.input}
               placeholder="Search here…"
-              onChangeText={() => {
-                console.log('va');
-              }}
+              onChangeText={searchOnchange}
               //   value={'text'}
             />
           </View>
           <View style={styles.filterIcon}>
-            <Svg
-              width="24px"
-              height="24px"
-              viewBox="0 0 24 24"
-              id="magicoon-Regular"
-              xmlns="http://www.w3.org/2000/svg">
-              <Defs></Defs>
-              <G id="filter-Regular">
-                <Path
-                  fill="#030D45"
-                  id="filter-Regular-2"
-                  data-name="filter-Regular"
-                  className="cls-1"
-                  d="M18.5,2.25H5.5A2.252,2.252,0,0,0,3.25,4.5V6.586a1.736,1.736,0,0,0,.513,1.237l5.121,5.121a1.246,1.246,0,0,1,.366.885V21a.75.75,0,0,0,1.2.6l4-3a.75.75,0,0,0,.3-.6V13.829a1.246,1.246,0,0,1,.366-.885l5.121-5.121a1.736,1.736,0,0,0,.513-1.237V4.5A2.252,2.252,0,0,0,18.5,2.25Zm-13,1.5h13a.75.75,0,0,1,.75.75V6.25H4.75V4.5A.75.75,0,0,1,5.5,3.75Zm8.556,8.134a2.73,2.73,0,0,0-.806,1.945v3.8L10.75,19.5V13.829a2.73,2.73,0,0,0-.806-1.945L5.811,7.75H18.189Z"
-                />
-              </G>
-            </Svg>
+            <TouchableOpacity onPress={() => setFilterIcon('flex')}>
+              <Svg
+                width="24px"
+                height="24px"
+                viewBox="0 0 24 24"
+                id="magicoon-Regular"
+                xmlns="http://www.w3.org/2000/svg">
+                <Defs></Defs>
+                <G id="filter-Regular">
+                  <Path
+                    fill="#030D45"
+                    id="filter-Regular-2"
+                    data-name="filter-Regular"
+                    className="cls-1"
+                    d="M18.5,2.25H5.5A2.252,2.252,0,0,0,3.25,4.5V6.586a1.736,1.736,0,0,0,.513,1.237l5.121,5.121a1.246,1.246,0,0,1,.366.885V21a.75.75,0,0,0,1.2.6l4-3a.75.75,0,0,0,.3-.6V13.829a1.246,1.246,0,0,1,.366-.885l5.121-5.121a1.736,1.736,0,0,0,.513-1.237V4.5A2.252,2.252,0,0,0,18.5,2.25Zm-13,1.5h13a.75.75,0,0,1,.75.75V6.25H4.75V4.5A.75.75,0,0,1,5.5,3.75Zm8.556,8.134a2.73,2.73,0,0,0-.806,1.945v3.8L10.75,19.5V13.829a2.73,2.73,0,0,0-.806-1.945L5.811,7.75H18.189Z"
+                  />
+                </G>
+              </Svg>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.issuesCount}>
           <View style={styles.textContainer}>
             <Text style={styles.countingLable}>open</Text>
             <View style={{...styles.countView, backgroundColor: '#f27d35'}}>
-              <Text style={styles.countingNumber}>1</Text>
+              <Text style={styles.countingNumber}>2</Text>
             </View>
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.countingLable}>RESOLVED</Text>
             <View style={{...styles.countView, backgroundColor: '#31b198'}}>
-              <Text style={styles.countingNumber}>1</Text>
+              <Text style={styles.countingNumber}>2</Text>
             </View>
           </View>
           <View style={styles.textContainer}>
@@ -130,25 +157,24 @@ export default function IssuesList() {
             </View>
           </View>
         </View>
-        <View>
+        {filtredData ? (
           <FlatList
-            data={data}
+            data={filtredData}
             renderItem={renderItem}
             keyExtractor={item => item.id}
             // extraData={selectedId}
           />
-        </View>
+        ) : (
+          <View style={styles.noIssues}>
+            <Text style={styles.noIssuesText}>No Issues founded...!</Text>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
 }
 
-const renderItem = ({item}) => {
-  // const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
-  // const color = item.id === selectedId ? 'white' : 'black';
 
-  return <IssueCard item={item} />;
-};
 
 const styles = StyleSheet.create({
   root: {
@@ -190,6 +216,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     height: 51,
     marginBottom: 15,
+    position: 'relative',
   },
   search: {
     marginLeft: 10,
@@ -212,7 +239,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     height: 50,
-    marginBottom: 5,
+    marginBottom: 10,
   },
   textContainer: {
     flexDirection: 'row',
@@ -221,8 +248,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     borderRadius: 50,
     paddingVertical: 4,
-    paddingHorizontal: 8,
-    // width: 20,
+    paddingHorizontal: 7,
+    width: 20,
     // height:20
   },
   countingLable: {
@@ -241,5 +268,37 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     letterSpacing: 0.8,
     color: '#FFF',
+  },
+  noIssues: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noIssuesText: {
+    fontFamily: 'ProximaNova',
+    fontSize: 16,
+    fontWeight: '700',
+    letterSpacing: 0.8,
+    color: '#363a57',
+  },
+  menuCard: {
+    position: 'absolute',
+    width: 100,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 10,
+    zIndex: 1,
+    top: 120,
+    right: 30,
+  },
+  menuItem: {
+    marginBottom: 10,
+    fontFamily: 'ProximaNova',
+    fontSize: 14,
+    fontWeight: '700',
+    letterSpacing: 0.8,
+    color: '#363a57',
   },
 });

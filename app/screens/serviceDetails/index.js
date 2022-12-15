@@ -46,7 +46,7 @@ const ServiceDetails = ({navigation}) => {
           <View style={styles.backBtn}>
             <Image
               style={styles.backArrow}
-              source={require('../../assets/images/arrow-right.png')}
+              source={require('../../assets/images/arrowRight.png')}
             />
           </View>
           <View style={styles.titleBlock}>
