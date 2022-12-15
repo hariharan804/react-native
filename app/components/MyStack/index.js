@@ -15,7 +15,7 @@ function MyStack() {
           options={option}
           component={IssuesList}
         />
-          <Stack.Screen
+        <Stack.Screen
           name="IssuesDetails"
           options={option}
           component={IssuesDetails}

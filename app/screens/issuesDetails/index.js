@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import CustomButton from '../../components/customButton';
 
-export default function IssuesDetails({route,navigation}) {
-  const { id } = route.params;
+export default function IssuesDetails({route, navigation}) {
+  const {id} = route.params;
   const [response, setResponse] = useState(null);
   const [filtered, setFiltered] = useState(null);
   const goToMap = ({
@@ -76,9 +76,7 @@ export default function IssuesDetails({route,navigation}) {
             <View style={styles.paddingBlock}>
               <View style={styles.headTagContainer}>
                 <View style={styles.headings}>
-                  <Text style={styles.heading}>
-                    {filtered?.title}
-                  </Text>
+                  <Text style={styles.heading}>{filtered?.title}</Text>
                   <View style={styles.subHeadingContainer}>
                     <View style={styles.borderRight}>
                       <Text style={styles.subHeading}>
@@ -87,7 +85,7 @@ export default function IssuesDetails({route,navigation}) {
                     </View>
                     <View>
                       <Text style={[styles.subHeading, {paddingLeft: 10}]}>
-                      {filtered?.subTitle}
+                        {filtered?.subTitle}
                       </Text>
                     </View>
                   </View>
@@ -124,22 +122,27 @@ export default function IssuesDetails({route,navigation}) {
             </View>
             <View
               style={{...styles.paddingBlock, paddingTop: 1, marginBottom: 20}}>
-              <Text style={styles.message}>
-              {filtered?.message}
-              </Text>
+              <Text style={styles.message}>{filtered?.message}</Text>
             </View>
             <View style={styles.paddingBlock}>
               <View style={styles.navBtn}>
                 <View style={styles.btnContainer}>
                   <TouchableOpacity
                     onPress={() => Linking.openURL(`tel:${filtered?.phone}`)}
-                    style={{...styles.buttonStyle, backgroundColor:"#f27d351d", color:"#f27d35", borderColor:"#f27d351d"}}
+                    style={{
+                      ...styles.buttonStyle,
+                      backgroundColor: '#f27d351d',
+                      color: '#f27d35',
+                      borderColor: '#f27d351d',
+                    }}
                     activeOpacity={0.6}>
                     <Image
                       source={require('../../assets/images/phone.png')}
                       style={styles.buttonImageIconStyle}
                     />
-                    <Text style={{...styles.buttonTextStyle,color:"#f27d35"}}>Call</Text>
+                    <Text style={{...styles.buttonTextStyle, color: '#f27d35'}}>
+                      Call
+                    </Text>
                   </TouchableOpacity>
                 </View>
                 <View style={{...styles.btnContainer, marginHorizontal: 8}}>
@@ -155,7 +158,9 @@ export default function IssuesDetails({route,navigation}) {
                 </View>
                 <View style={styles.btnContainer}>
                   <TouchableOpacity
-                    onPress={()=>goToMap(filtered?.latitude,filtered?.longitude)}
+                    onPress={() =>
+                      goToMap(filtered?.latitude, filtered?.longitude)
+                    }
                     style={styles.buttonStyle}
                     activeOpacity={0.6}>
                     <Image

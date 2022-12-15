@@ -2,8 +2,15 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
 
-const CustomButton = ({title, color, bgColor, width, height, paddingVertical, onPress}) => {
- 
+const CustomButton = ({
+  title,
+  color,
+  bgColor,
+  width,
+  height,
+  paddingVertical,
+  onPress,
+}) => {
   return (
     <View>
       <TouchableOpacity

@@ -18,20 +18,22 @@ export default function IssueCard({item, navigation}) {
   }, [status]);
 
   return (
-    <View style={styles.root} >
-    <TouchableOpacity onPress={()=>navigation.navigate('IssuesDetails',{id:id})}  activeOpacity={0.7}>
-      <View style={styles.detailsContainer}>
-        <Text style={styles.id}>{id}</Text>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subTitle}>{subTitle}</Text>
-      </View>
-      <View style={styles.statusContainer}>
-        <Text style={styles.statusLable}>
-          Status:{' '}
-          <Text style={{...styles.statusValue, color: color}}>{status}</Text>
-        </Text>
-      </View>
-      </TouchableOpacity> 
+    <View style={styles.root}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('IssuesDetails', {id: id})}
+        activeOpacity={0.7}>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.id}>{id}</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.subTitle}>{subTitle}</Text>
+        </View>
+        <View style={styles.statusContainer}>
+          <Text style={styles.statusLable}>
+            Status:{' '}
+            <Text style={{...styles.statusValue, color: color}}>{status}</Text>
+          </Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
